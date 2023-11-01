@@ -73,5 +73,5 @@ def insert_admission(username: str, hoTen: str, heDaoTao: str, nganhHoc: str):
 @app.get("/get_ListAdmission/")
 def get_all_adList():
     listAd = get_all_adList('AdmissionsList')
-    return {"Data": listAd}
+    return {"data": str( listAd)}
 
