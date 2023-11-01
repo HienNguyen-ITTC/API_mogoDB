@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Query,File
-from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 
 app = FastAPI()
@@ -12,7 +11,7 @@ database_name = "Admissions"
 def insert_admission_data(username, hoTen, heDaoTao, nganhHoc):
     try:
         # Kết nối tới MongoDB
-        client = MongoClient(mongo_uri)
+        client = MongoClient(uri)
 
         # Chọn cơ sở dữ liệu và bảng
         db = client[database_name]
@@ -40,27 +39,27 @@ def insert_admission_data(username, hoTen, heDaoTao, nganhHoc):
         # Đóng kết nối MongoDB
         client.close()
 #Lấy danh sách
-def get_all_adList(table_name):
+def get_all_admission_data(username):
     try:
-        # Kết nối tới MongoDB (cập nhật chuỗi kết nối với thông tin máy chủ MongoDB của bạn)
-
+        # Kết nối tới MongoDB
+        client = MongoClient(uri)
 
         # Chọn cơ sở dữ liệu và bảng
-        client = MongoClient(mongo_uri) # Thay "mydatabase" bằng tên cơ sở dữ liệu của bạn
         db = client[database_name]
-        collection = db[table_name]  # Thay "user" bằng tên bảng của bạn
+        collection = db['AdmissionsList']
 
-        # Tìm tất cả các người dùng
-        all_users = list(collection.find())
-        # In danh sách người dùng
-        return all_users
+        # Tìm tất cả dữ liệu trong bảng
+        all_data = list(collection.find())
+        print(all_data)
+        return all_data
 
     except Exception as e:
         print(f"Có lỗi xảy ra: {e}")
+        raise HTTPException(status_code=500, detail="Lỗi trong quá trình lấy dữ liệu")
 
     finally:
         # Đóng kết nối MongoDB
-        client.close()   
+        client.close()
 
 
 # Định nghĩa endpoint cho API
@@ -70,8 +69,7 @@ def insert_admission(username: str, hoTen: str, heDaoTao: str, nganhHoc: str):
     return {"message": "Dữ liệu đã được thêm thành công", "inserted_id": str(inserted_id)}
 
 
-@app.get("/get_ListAdmission/")
-def get_all_adList():
-    listAd = get_all_adList('AdmissionsList')
-    return {"data": str( listAd)}
-
+@app.get("/get_ListAdmission2/")
+def get_all_adList1():
+    admission_data = get_all_admission_data('admin')
+    return {"data": str( admission_data)}
