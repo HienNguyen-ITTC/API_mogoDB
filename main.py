@@ -1,7 +1,24 @@
 from fastapi import FastAPI, HTTPException, Query,File
 from pymongo import MongoClient
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 app = FastAPI()
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:8000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Chuỗi kết nối MongoDB
 uri = "mongodb+srv://admin_course:i7QX0kykBi7XmFeF@cluster0.n6x8tmr.mongodb.net/Admissions"
 # Tên cơ sở dữ liệu MongoDB
