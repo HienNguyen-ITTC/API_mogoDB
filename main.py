@@ -90,7 +90,7 @@ def insert_admission(username: str, hoTen: str, heDaoTao: str, nganhHoc: str):
 def get_all_adList1():
     admission_data = get_all_admission_data('admin')
     return {str( admission_data)}
-@app.post("/detect_text")
+@app.get("/detect_text")
 async def detect_text(imageUrl:str ):
    api_url = "http://45.119.82.190:8000/detect_text"
    params = {
