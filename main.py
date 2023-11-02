@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query,File
 from pymongo import MongoClient
 from fastapi.middleware.cors import CORSMiddleware
-
+import requests
 
 
 app = FastAPI()
@@ -90,4 +90,17 @@ def insert_admission(username: str, hoTen: str, heDaoTao: str, nganhHoc: str):
 def get_all_adList1():
     admission_data = get_all_admission_data('admin')
     return {str( admission_data)}
-
+@app.post("/detect_text")
+async def detect_text(imageUrl:str ):
+   api_url = "http://45.119.82.190:8000/detect_text"
+   params = {
+        "image_url": imageUrl
+    }
+   response = requests.get(api_url, params=params)
+   if response.status_code == 200:
+    # If the response status code is 200 (OK), you can access the API response data
+        data = response.json()
+        return {"data":data}
+   else:
+    # Handle error responses, such as 4xx or 5xx status codes
+    return {"result":"failed"}
