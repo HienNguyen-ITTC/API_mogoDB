@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Query,File
 from pymongo import MongoClient
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+import json
 
 
 app = FastAPI()
