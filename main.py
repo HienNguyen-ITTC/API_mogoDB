@@ -65,10 +65,11 @@ def get_all_admission_data(username):
         db = client[database_name]
         collection = db['AdmissionsList']
 
+        projection = {"_id": 0}
         # Tìm tất cả dữ liệu trong bảng
-        all_data = list(collection.find())
-        print(all_data)
-        return all_data
+        all_data = list(collection.find({},projection))
+        json_data = json.dumps(all_data)
+        return json_data
 
     except Exception as e:
         print(f"Có lỗi xảy ra: {e}")
