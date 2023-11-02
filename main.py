@@ -43,8 +43,8 @@ def insert_admission_data(username, hoTen, sdt,heDaoTao, nganhHoc):
             "sdt":sdt,
             "heDaoTao": heDaoTao,
             "nganhHoc": nganhHoc,
-            "createdAt": datetime.datetime.utcnow(),
-            "updatedAt": datetime.datetime.utcnow()
+            "createdAt": datetime.utcnow(),
+            "updatedAt": datetime.utcnow()
         }
 
         # Chèn dữ liệu người dùng vào bảng
