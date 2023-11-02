@@ -26,7 +26,7 @@ uri = "mongodb+srv://admin_course:i7QX0kykBi7XmFeF@cluster0.n6x8tmr.mongodb.net/
 database_name = "Admissions"
 
 # Hàm để thực hiện chèn dữ liệu vào MongoDB
-def insert_admission_data(username, hoTen, heDaoTao, nganhHoc):
+def insert_admission_data(username, hoTen, sdt,heDaoTao, nganhHoc):
     try:
         # Kết nối tới MongoDB
         client = MongoClient(uri)
@@ -39,6 +39,7 @@ def insert_admission_data(username, hoTen, heDaoTao, nganhHoc):
         dataForm = {
             "username": username,
             "hoTen": hoTen,
+            "sdt":sdt,
             "heDaoTao": heDaoTao,
             "nganhHoc": nganhHoc
         }
@@ -83,8 +84,8 @@ def get_all_admission_data(username):
 
 # Định nghĩa endpoint cho API
 @app.post("/insert_admission/")
-def insert_admission(username: str, hoTen: str, heDaoTao: str, nganhHoc: str):
-    inserted_id = insert_admission_data(username, hoTen, heDaoTao, nganhHoc)
+def insert_admission(username: str, hoTen: str,sdt:str, heDaoTao: str, nganhHoc: str):
+    inserted_id = insert_admission_data(username, hoTen,sdt, heDaoTao, nganhHoc)
     return {"message": "Dữ liệu đã được thêm thành công", "inserted_id": str(inserted_id)}
 
 
