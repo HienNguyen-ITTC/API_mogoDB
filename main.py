@@ -101,7 +101,7 @@ async def detect_text(imageUrl:str ):
    if response.status_code == 200:
     # If the response status code is 200 (OK), you can access the API response data
         data = response.json()
-        return {"data":data}
+        return {"data":str(data)}
    else:
     # Handle error responses, such as 4xx or 5xx status codes
     return {"result":"failed"}
